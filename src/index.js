@@ -1,13 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import TodoList from "./TodoList";
-import { Provider } from "react-redux";
-import store from "./store/index";
+import "./index.css";
+import App from "./App";
+import * as servicWorker from "./servicWorker";
+import router from "./routers";
+import modelIndex from "./models";
 
-const App = (
-    <Provider store={store}>
-        <TodoList />
-    </Provider>
-);
+import dva from "dva";
 
-ReactDOM.render(App, document.getElementById("root"));
+let app = new dva();
+
+app.router(router);
+app.model(modelIndex);
+
+app.start("#root");
+servicWorker.unregister();

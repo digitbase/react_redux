@@ -1,5 +1,11 @@
-import React from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
+import {
+    changeInputAction,
+    btnClickAction,
+    delItemAction,
+    getTodoList,
+} from "./store/actionCreators";
 
 const TodoList = (props) => {
     let { inputValue, inputChange, clickBtn, delItem, list } = props;
@@ -35,29 +41,17 @@ const stateToProps = (state) => {
 };
 
 const dispatchToProps = (dispatch) => {
+    console.log(dispatch);
     return {
         inputChange(e) {
-            console.log(e.target.value);
-            //this.props.inputValue = "";
-            let action = {
-                type: "change_input",
-                value: e.target.value,
-            };
-            dispatch(action);
+            console.log(changeInputAction);
+            dispatch(changeInputAction(e.target.value));
         },
         clickBtn() {
-            let action = {
-                type: "btn_click",
-            };
-            dispatch(action);
+            dispatch(btnClickAction());
         },
         delItem(index) {
-            // console.log(index);
-            let action = {
-                type: "del_item",
-                index: index,
-            };
-            dispatch(action);
+            dispatch(delItemAction(index));
         },
     };
 };
